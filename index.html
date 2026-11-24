@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12231f">
+    <meta name="description" content="以 GitHub repo stars 排序的 AI agent 開放原始碼專案清單。">
+    <title>Moli Project — AI Agent Browser</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/site.css">
+    <script type="module" src="assets/app.mjs"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="wordmark" href="./" aria-label="Moli Project 首頁">
+        <span class="wordmark-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>MOLI PROJECT</span>
+      </a>
+      <a class="masthead-link" href="https://github.com/lexmount/moli" target="_blank" rel="noreferrer">查看 Moli 原始碼 <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-content">
+          <p class="hero-kicker"><span class="status-dot"></span> 給 AI agent 使用的開放原始碼工具</p>
+          <h1 id="page-title">探索 agent<br><span>工具專案</span></h1>
+          <p class="hero-description">依 GitHub repo 的 Stars 數量排序，先從值得認識的開放原始碼工具開始。</p>
+          <a class="hero-command" href="https://github.com/lexmount/moli" target="_blank" rel="noreferrer" aria-label="在 GitHub 查看 Moli 專案">
+            <span class="prompt-mark" aria-hidden="true">↗</span>
+            <code>github.com/lexmount/moli</code>
+            <span class="copy-mark" aria-hidden="true">GitHub</span>
+          </a>
+          <p class="hero-caption">開放原始碼專案 · GitHub Stars 為手動快照</p>
+        </div>
+        <div class="orbit" aria-hidden="true">
+          <div class="orbit-ring orbit-ring-outer"></div>
+          <div class="orbit-ring orbit-ring-middle"></div>
+          <div class="orbit-ring orbit-ring-inner"></div>
+          <span class="orbit-center">M<span>✳</span></span>
+          <span class="orbit-node orbit-node-1">navigate</span>
+          <span class="orbit-node orbit-node-2">extract</span>
+          <span class="orbit-node orbit-node-3">automate</span>
+          <span class="orbit-node orbit-node-4">search</span>
+          <span class="orbit-cross orbit-cross-1">✳</span>
+          <span class="orbit-cross orbit-cross-2">✳</span>
+          <span class="orbit-cross orbit-cross-3">✳</span>
+          <span class="orbit-cross orbit-cross-4">✳</span>
+        </div>
+        <div class="hero-index" aria-hidden="true">LEXMOUNT / MOLI <span>—</span> HEADLESS BROWSER</div>
+      </section>
+
+      <section class="catalog-section" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">THE COLLECTION</p>
+            <h2 id="catalog-title">目前收錄的專案</h2>
+            <p class="section-description">目前收錄 5 個 AI agent、圖解與資料庫工具專案。</p>
+          </div>
+          <div class="catalog-count" aria-live="polite"><span id="result-count">5</span><span class="count-divider">/</span><span data-total-count>5</span> <span class="count-label">個專案</span></div>
+        </div>
+
+        <div class="catalog-toolbar">
+          <label class="search-box">
+            <span class="search-icon" aria-hidden="true"></span>
+            <span class="sr-only">搜尋專案</span>
+            <input id="skill-search" type="search" placeholder="搜尋專案或關鍵字…" autocomplete="off">
+            <kbd>/</kbd>
+          </label>
+          <label class="sort-control">
+            <span class="sort-label">排序</span>
+            <select id="skill-sort" aria-label="排序專案">
+              <option value="stars-desc">GitHub Stars：高到低</option>
+              <option value="stars-asc">GitHub Stars：低到高</option>
+              <option value="name-asc">名稱：A 到 Z</option>
+            </select>
+          </label>
+        </div>
+
+
+        <nav class="category-filters" aria-label="依專案類別篩選">
+          <button class="category-chip is-active" type="button" data-category="all" aria-pressed="true">全部 <span data-total-count>5</span></button>
+          <button class="category-chip" type="button" data-category="瀏覽器與網頁" aria-pressed="false">瀏覽器與網頁</button>
+          <button class="category-chip" type="button" data-category="圖表與視覺化" aria-pressed="false">圖表與視覺化</button>
+          <button class="category-chip" type="button" data-category="AI 代理與協作" aria-pressed="false">AI 代理與協作</button>
+          <button class="category-chip" type="button" data-category="資料庫與資料設計" aria-pressed="false">資料庫與資料設計</button>
+        </nav>
+        <div id="skill-grid" class="skill-grid" aria-live="polite" aria-busy="false"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <span class="empty-symbol" aria-hidden="true">⌕</span>
+          <h3>找不到符合的專案</h3>
+          <p>試試其他關鍵字，或切換到「全部」類別。</p>
+          <button id="clear-filters" class="clear-button" type="button">清除篩選</button>
+        </div>
+
+        <p class="data-note"><span class="note-mark" aria-hidden="true">i</span> 星數為 GitHub repo 手動快照（2026-11-24），代表專案人氣，不代表品質。</p>
+      </section>
+
+      <section class="closing-note" aria-label="資料來源與更新說明">
+        <div class="closing-rule"></div>
+        <p>目前收錄 5 個 GitHub 專案；更多介紹會再逐步加入。</p>
+        <a href="https://github.com/" target="_blank" rel="noreferrer">資料來源：GitHub repo stars · 2026-11-24 <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>MOLI PROJECT <span class="footer-dot">✳</span> AI AGENT BROWSER</span>
+      <a href="https://github.com/trend-consumer-griffin/agent-skill-recommender" target="_blank" rel="noreferrer">在 GitHub 上查看 <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>
