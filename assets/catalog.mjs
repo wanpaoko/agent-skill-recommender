@@ -10,10 +10,12 @@ const repositoryStars = {
   'D4Vinci/Scrapling': 105_475,
   'colbymchenry/codegraph': 78_591,
   'google/elephant-goldfish-model': 22_800,
+  'haydenschmitty/floorplan': 6_808,
 };
 
 const repositoryStarsCheckedAt = {
   'google/elephant-goldfish-model': '2026-11-25',
+  'haydenschmitty/floorplan': '2026-11-25',
 };
 
 export const repositories = [
@@ -136,6 +138,17 @@ export const repositories = [
     description: '開源 AI 助理 plugin，以 Elephant 整理專案脈絡並草擬規格，再由 Goldfish reviewer 以新脈絡審查文件，協助發現未明說的假設與盲點。',
     pickReason: '把規格草擬與獨立審查拆成兩個角色，適合參考它如何讓 agent 工作流程保留人工決策。',
     tags: ['AI agent', '規格設計', '文件審查'],
+    kind: 'repository',
+  },
+  {
+    id: 'floorplan',
+    name: 'Floorplan',
+    owner: 'haydenschmitty',
+    repository: 'floorplan',
+    category: '圖表與視覺化',
+    description: '由 Claude Code 或 Codex 讀取程式碼並繪製可縮放的互動式白話架構地圖，標出模組、檔案、畫面、前後端請求與外部服務關聯。',
+    pickReason: '把完整程式碼庫轉成可探索的白話互動地圖，並內建健康檢查、近期 AI 變更追蹤與依規格規劃藍圖功能。',
+    tags: ['架構地圖', '互動視覺化', 'Agent Plugin'],
     kind: 'repository',
   },
 ].map((repository) => {
