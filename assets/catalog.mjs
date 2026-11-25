@@ -9,6 +9,11 @@ const repositoryStars = {
   'GoogleChrome/modern-web-guidance': 25_773,
   'D4Vinci/Scrapling': 105_475,
   'colbymchenry/codegraph': 78_591,
+  'google/elephant-goldfish-model': 22_800,
+};
+
+const repositoryStarsCheckedAt = {
+  'google/elephant-goldfish-model': '2026-11-25',
 };
 
 export const repositories = [
@@ -122,12 +127,23 @@ export const repositories = [
     tags: ['程式碼圖譜', 'Tree-sitter', 'Agent Skill'],
     kind: 'repository',
   },
+  {
+    id: 'elephant-goldfish-model',
+    name: 'Elephant-Goldfish Model',
+    owner: 'google',
+    repository: 'elephant-goldfish-model',
+    category: 'AI 代理、寫作與研究',
+    description: '開源 AI 助理 plugin，以 Elephant 整理專案脈絡並草擬規格，再由 Goldfish reviewer 以新脈絡審查文件，協助發現未明說的假設與盲點。',
+    pickReason: '把規格草擬與獨立審查拆成兩個角色，適合參考它如何讓 agent 工作流程保留人工決策。',
+    tags: ['AI agent', '規格設計', '文件審查'],
+    kind: 'repository',
+  },
 ].map((repository) => {
   const repositoryUrl = `https://github.com/${repository.owner}/${repository.repository}`;
   return {
     ...repository,
     stars: repositoryStars[`${repository.owner}/${repository.repository}`],
-    starsCheckedAt: '2026-11-24',
+    starsCheckedAt: repositoryStarsCheckedAt[`${repository.owner}/${repository.repository}`] ?? '2026-11-24',
     repositoryUrl,
     detailUrl: repositoryUrl,
   };
