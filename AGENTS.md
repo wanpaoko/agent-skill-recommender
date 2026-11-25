@@ -7,7 +7,7 @@
 ## Architecture & Data Flow
 
 - `index.html` 定義頁面結構、搜尋／排序控制項、分類按鈕、結果區與空結果狀態。
-- `assets/catalog.mjs` 匯出專案資料及純函式 `filterSkills()`、`sortSkills()`。
+- `assets/catalog.mjs` 匯出手動精選的 repo 清單及純函式 `filterRepositories()`、`sortRepositories()`。
 - `assets/app.mjs` 匯入 catalog；初次載入及搜尋、分類、排序變更時，`render()` 篩選並排序資料，以 DOM API 建立卡片，再更新結果數與空狀態。
 - `assets/site.css` 負責樣式、響應式版面、鍵盤焦點與減少動態效果的偏好設定。
 
