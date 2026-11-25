@@ -201,9 +201,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .category-chip > span { color: #667c58; font-family: 'DM Mono', monospace; font-size: 10px; }
 .category-chip.is-active > span { color: var(--bright); }
 
-.skill-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 22px; }
-.skill-card { position: relative; display: flex; min-height: 210px; flex-direction: column; padding: 17px 17px 14px; border: 1px solid var(--border); border-radius: 5px; background: #fff; transition: border-color .16s ease, transform .16s ease; }
-.skill-card:hover { border-color: #a3b28b; transform: translateY(-2px); }
+.repository-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 22px; }
+.repository-card { position: relative; display: flex; min-height: 260px; flex-direction: column; padding: 17px 17px 14px; border: 1px solid var(--border); border-radius: 5px; background: #fff; transition: border-color .16s ease, transform .16s ease; }
+.repository-card:hover { border-color: #a3b28b; transform: translateY(-2px); }
 .card-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .card-category { color: #6a7860; font-size: 10px; }
 .card-rank { color: #8b9287; font-family: 'DM Mono', monospace; font-size: 10px; }
@@ -215,6 +215,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .card-link-mark { color: #97a08f; font-size: 12px; }
 .card-owner { margin: 3px 0 0; color: #81897e; font-family: 'DM Mono', monospace; font-size: 9px; }
 .card-description { margin: 11px 0 14px; color: #687066; font-size: 11px; line-height: 1.8; }
+.card-pick-reason { margin: 0 0 14px; padding-left: 10px; border-left: 2px solid #a8bc70; color: #3f5037; font-size: 11px; line-height: 1.75; }
 .card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 12px; border-top: 1px solid #edf0e8; }
 .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
 .card-tag { padding: 3px 6px; border-radius: 2px; background: #f0f3e9; color: #616e53; font-size: 9px; }
@@ -253,7 +254,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .hero::after { background: linear-gradient(90deg, #12231f 0%, rgba(18,35,31,.96) 57%, rgba(18,35,31,.65) 100%); }
   .hero-content { width: 78%; margin-left: 7vw; }
   .orbit { right: -168px; opacity: .48; transform: translateY(-50%) scale(.9); }
-  .skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .repository-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .catalog-section, .closing-note { width: calc(100% - 60px); }
 }
 
@@ -286,8 +287,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .sort-control select { margin-left: auto; text-align: right; }
   .category-filters { gap: 7px; margin-top: 14px; }
   .category-chip { min-height: 30px; padding: 0 9px; font-size: 10px; }
-  .skill-grid { grid-template-columns: 1fr; gap: 9px; margin-top: 16px; }
-  .skill-card { min-height: 194px; padding: 15px 14px 12px; }
+  .repository-grid { grid-template-columns: 1fr; gap: 9px; margin-top: 16px; }
+  .repository-card { min-height: 224px; padding: 15px 14px 12px; }
   .card-description { margin-top: 9px; margin-bottom: 12px; }
   .data-note { align-items: flex-start; font-size: 9px; }
   .note-mark { margin-top: 1px; }

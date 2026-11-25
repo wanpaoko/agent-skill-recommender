@@ -1,37 +1,37 @@
-import { filterSkills, skills, sortSkills } from './catalog.mjs';
+import { filterRepositories, repositories, sortRepositories } from './catalog.mjs';
 
-const grid = document.querySelector('#skill-grid');
-const searchInput = document.querySelector('#skill-search');
-const sortSelect = document.querySelector('#skill-sort');
+const grid = document.querySelector('#repository-grid');
+const searchInput = document.querySelector('#repository-search');
+const sortSelect = document.querySelector('#repository-sort');
 const resultCount = document.querySelector('#result-count');
 const emptyState = document.querySelector('#empty-state');
 const categoryButtons = [...document.querySelectorAll('.category-chip')];
 const numberFormatter = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 });
-const totalCount = String(skills.length);
+const totalCount = String(repositories.length);
 for (const total of document.querySelectorAll('[data-total-count]')) total.textContent = totalCount;
 let category = 'all';
 
-function createCard(skill) {
+function createRepositoryCard(repository) {
   const article = document.createElement('article');
-  article.className = 'skill-card';
+  article.className = 'repository-card';
 
   const top = document.createElement('div');
   top.className = 'card-topline';
   const categoryLabel = document.createElement('span');
   categoryLabel.className = 'card-category';
-  categoryLabel.textContent = skill.kind === 'repository' ? 'Repo' : skill.category;
-
+  categoryLabel.textContent = repository.category;
+  top.append(categoryLabel);
   const titleRow = document.createElement('div');
   titleRow.className = 'card-title-row';
   const title = document.createElement('h3');
   title.className = 'card-title';
   const link = document.createElement('a');
   link.className = 'card-title-link';
-  link.href = skill.repositoryUrl;
+  link.href = repository.repositoryUrl;
   link.target = '_blank';
   link.rel = 'noreferrer';
-  link.textContent = skill.name;
-  link.setAttribute('aria-label', `在 GitHub 查看 ${skill.name} 所屬專案`);
+  link.textContent = repository.name;
+  link.setAttribute('aria-label', `在 GitHub 查看 ${repository.name} 所屬專案`);
   title.append(link);
   const linkMark = document.createElement('span');
   linkMark.className = 'card-link-mark';
@@ -41,17 +41,20 @@ function createCard(skill) {
 
   const owner = document.createElement('p');
   owner.className = 'card-owner';
-  owner.textContent = `${skill.owner}/${skill.repository}`;
+  owner.textContent = `${repository.owner}/${repository.repository}`;
 
   const description = document.createElement('p');
   description.className = 'card-description';
-  description.textContent = skill.description;
+  description.textContent = repository.description;
+  const pickReason = document.createElement('p');
+  pickReason.className = 'card-pick-reason';
+  pickReason.textContent = repository.pickReason;
 
   const bottom = document.createElement('div');
   bottom.className = 'card-bottom';
   const tags = document.createElement('div');
   tags.className = 'card-tags';
-  for (const text of skill.tags) {
+  for (const text of repository.tags) {
     const tag = document.createElement('span');
     tag.className = 'card-tag';
     tag.textContent = text;
@@ -60,26 +63,26 @@ function createCard(skill) {
   const stars = document.createElement('span');
   stars.className = 'card-stars';
   const starCount = document.createElement('strong');
-  starCount.textContent = `${numberFormatter.format(skill.stars)} ★`;
-  stars.append(starCount, document.createTextNode(`GitHub stars · ${skill.starsCheckedAt}`));
+  starCount.textContent = `${numberFormatter.format(repository.stars)} ★`;
+  stars.append(starCount, document.createTextNode(`GitHub stars · ${repository.starsCheckedAt}`));
   bottom.append(tags, stars);
 
-  article.append(top, titleRow, owner, description, bottom);
+  article.append(top, titleRow, owner, description, pickReason, bottom);
   return article;
 }
 
 function render() {
-  const matchingSkills = sortSkills(filterSkills(skills, {
+  const matchingRepositories = sortRepositories(filterRepositories(repositories, {
     query: searchInput.value,
     category,
   }), sortSelect.value);
   const fragment = document.createDocumentFragment();
 
-  for (const skill of matchingSkills) fragment.append(createCard(skill));
+  for (const repository of matchingRepositories) fragment.append(createRepositoryCard(repository));
   grid.replaceChildren(fragment);
-  resultCount.textContent = String(matchingSkills.length);
-  emptyState.hidden = matchingSkills.length !== 0;
-  grid.hidden = matchingSkills.length === 0;
+  resultCount.textContent = String(matchingRepositories.length);
+  emptyState.hidden = matchingRepositories.length !== 0;
+  grid.hidden = matchingRepositories.length === 0;
 }
 
 

@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { filterSkills, sortSkills, skills } from '../assets/catalog.mjs';
+import { filterRepositories, repositories, sortRepositories } from '../assets/catalog.mjs';
 
 test('catalog includes ten GitHub repository cards with dated star snapshots', () => {
-  assert.equal(skills.length, 10);
-  assert.deepEqual(skills.map((item) => item.id), [
+  assert.equal(repositories.length, 10);
+  assert.deepEqual(repositories.map((item) => item.id), [
     'moli',
     'archify',
     'diagram-design',
@@ -31,7 +31,7 @@ test('catalog includes ten GitHub repository cards with dated star snapshots', (
   ];
 
   for (const [id, owner, repository, stars] of expected) {
-    const item = skills.find((entry) => entry.id === id);
+    const item = repositories.find((entry) => entry.id === id);
     assert.equal(item.kind, 'repository');
     assert.equal(item.owner, owner);
     assert.equal(item.repository, repository);
@@ -39,13 +39,17 @@ test('catalog includes ten GitHub repository cards with dated star snapshots', (
     assert.equal(item.starsCheckedAt, '2026-11-24');
     assert.equal(item.installCommand, undefined);
     assert.equal(item.repositoryUrl, `https://github.com/${owner}/${repository}`);
+    assert.equal(typeof item.pickReason, 'string');
+    assert.equal(typeof item.description, 'string');
+    assert.ok(item.description.trim(), `${id} needs a non-empty description`);
+    assert.ok(item.pickReason.trim(), `${id} needs a non-empty pick reason`);
   }
 });
 
 test('star and name sorting cover all ten repository cards', () => {
-  const descending = sortSkills(skills);
-  const ascending = sortSkills(skills, 'stars-asc');
-  const alphabetical = sortSkills(skills, 'name-asc');
+  const descending = sortRepositories(repositories);
+  const ascending = sortRepositories(repositories, 'stars-asc');
+  const alphabetical = sortRepositories(repositories, 'name-asc');
 
   assert.equal(descending.length, 10);
   assert.deepEqual(descending.map((item) => item.id), [
@@ -87,31 +91,33 @@ test('star and name sorting cover all ten repository cards', () => {
 });
 
 test('search and category filters find the ten requested repositories', () => {
-  assert.deepEqual(filterSkills(skills, { query: 'headless browser' }).map((item) => item.id), ['moli']);
-  assert.deepEqual(filterSkills(skills, { query: '互動式圖解' }).map((item) => item.id), ['archify']);
-  assert.deepEqual(filterSkills(skills, { query: '品牌化視覺' }).map((item) => item.id), ['diagram-design']);
-  assert.deepEqual(filterSkills(skills, { query: '專家型 AI agent' }).map((item) => item.id), ['agency-agents']);
-  assert.deepEqual(filterSkills(skills, { query: '資料庫 schema' }).map((item) => item.id), ['chartdb']);
-  assert.deepEqual(filterSkills(skills, { query: '去 AI 味' }).map((item) => item.id), ['humanizer-zh']);
-  assert.deepEqual(filterSkills(skills, { query: '社群研究' }).map((item) => item.id), ['last30days']);
-  assert.deepEqual(filterSkills(skills, { query: 'Web 標準' }).map((item) => item.id), ['modern-web-guidance']);
-  assert.deepEqual(filterSkills(skills, { query: '反爬機制' }).map((item) => item.id), ['scrapling']);
-  assert.deepEqual(filterSkills(skills, { query: '程式碼圖譜' }).map((item) => item.id), ['codegraph']);
-  assert.deepEqual(filterSkills(skills, { category: '瀏覽器與網頁' }).map((item) => item.id), ['moli', 'modern-web-guidance', 'scrapling']);
-  assert.deepEqual(filterSkills(skills, { category: '圖表與視覺化' }).map((item) => item.id), ['archify', 'diagram-design', 'chartdb']);
-  assert.deepEqual(filterSkills(skills, { category: 'AI 代理與協作' }).map((item) => item.id), ['agency-agents', 'humanizer-zh', 'last30days', 'codegraph']);
+  assert.deepEqual(filterRepositories(repositories, { query: 'headless browser' }).map((item) => item.id), ['moli']);
+  assert.deepEqual(filterRepositories(repositories, { query: '互動式圖解' }).map((item) => item.id), ['archify']);
+  assert.deepEqual(filterRepositories(repositories, { query: '品牌化視覺' }).map((item) => item.id), ['diagram-design']);
+  assert.deepEqual(filterRepositories(repositories, { query: '專家型 AI agent' }).map((item) => item.id), ['agency-agents']);
+  assert.deepEqual(filterRepositories(repositories, { query: '資料庫 schema' }).map((item) => item.id), ['chartdb']);
+  assert.deepEqual(filterRepositories(repositories, { query: '去 AI 味' }).map((item) => item.id), ['humanizer-zh']);
+  assert.deepEqual(filterRepositories(repositories, { query: '社群研究' }).map((item) => item.id), ['last30days']);
+  assert.deepEqual(filterRepositories(repositories, { query: 'Web 標準' }).map((item) => item.id), ['modern-web-guidance']);
+  assert.deepEqual(filterRepositories(repositories, { query: '自適應解析、反爬處理' }).map((item) => item.id), ['scrapling']);
+  assert.deepEqual(filterRepositories(repositories, { query: '追查主題近期脈絡' }).map((item) => item.id), ['last30days']);
+  assert.deepEqual(filterRepositories(repositories, { query: '繪製關聯圖到結構編輯' }).map((item) => item.id), ['chartdb']);
+  assert.deepEqual(filterRepositories(repositories, { category: '瀏覽器與網頁' }).map((item) => item.id), ['moli', 'modern-web-guidance', 'scrapling']);
+  assert.deepEqual(filterRepositories(repositories, { category: '圖表與視覺化' }).map((item) => item.id), ['archify', 'diagram-design']);
+  assert.deepEqual(filterRepositories(repositories, { category: '資料庫與資料設計' }).map((item) => item.id), ['chartdb']);
+  assert.deepEqual(filterRepositories(repositories, { category: 'AI 代理、寫作與研究' }).map((item) => item.id), ['agency-agents', 'humanizer-zh', 'last30days', 'codegraph']);
 });
 
 test('category filter keeps its selection while the project search text is empty', () => {
-  const filtered = filterSkills(skills, { category: '圖表與視覺化' });
-  assert.deepEqual(filtered.map((item) => item.id), ['archify', 'diagram-design', 'chartdb']);
+  const filtered = filterRepositories(repositories, { category: '資料庫與資料設計' });
+  assert.deepEqual(filtered.map((item) => item.id), ['chartdb']);
 });
 
 test('star sorting returns a new list with repositories in star order', () => {
-  const descending = sortSkills(skills, 'stars-desc');
-  const ascending = sortSkills(skills, 'stars-asc');
+  const descending = sortRepositories(repositories, 'stars-desc');
+  const ascending = sortRepositories(repositories, 'stars-asc');
 
-  assert.notStrictEqual(descending, skills);
+  assert.notStrictEqual(descending, repositories);
   assert.deepEqual(descending.map((item) => item.id), [
     'agency-agents',
     'scrapling',
